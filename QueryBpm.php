@@ -57,7 +57,6 @@ class QueryBpm
     public static function jsonDataBpm($jsonData, $url)
     {
 
-        //self::login();
         $Data = json_encode($jsonData, true);
         if (!isset($_SESSION["BPM_COOKIES"])) {
             self::login();
@@ -82,25 +81,15 @@ class QueryBpm
             $result["success"] = json_decode($insert_result, true);
             $result["status"] = $addHttpClient->getStatus(); // код статуса ответа
             $result["cookies"] = $_SESSION["BPM_COOKIES"];
-            /*if($result["status"] == "403"){
-                unset($_SESSION["BPM_COOKIES"]);
-                session_name('BitrixBpmConnect_ERROR');
-                session_set_cookie_params(4);
-                session_start();
-                if (isset($_SESSION["BitrixBpmConnect_ERROR"])) {
-                    self::jsonDataBpm($jsonData, $url);
-                }
 
-            }*/
-            $logger = Logger::getLogger('Query','ofd.bitrix24/Query.log');
-            $logger->log(array(dataTimeformat(),$result, $_SESSION["BPM_COOKIES"]));
+            //$logger = Logger::getLogger('Query','ofd.bitrix24/Query.log');
+            //$logger->log(array(dataTimeformat(),$result, $_SESSION["BPM_COOKIES"]));
             return ($result);
         }
 
     }
     public static function jsonDataBpmContr($jsonData, $url)
     {
-        //self::login();
         $Data = json_encode($jsonData, true);
         if (!isset($_SESSION["BPM_COOKIES"]) or empty($_SESSION["BPM_COOKIES"])) {
             self::login();
@@ -132,7 +121,6 @@ class QueryBpm
                 }
                 unset($_SESSION["BPM_COOKIES"]);
                 session_name('BitrixBpmConnect_ERROR');
-                //session_set_cookie_params(5);
                 session_start();
                 $_SESSION["BitrixBpmConnect_ERROR"] = $i;
                 if ($_SESSION["BitrixBpmConnect_ERROR"] < 5) {
