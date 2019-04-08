@@ -484,8 +484,6 @@ class CrmBitrixBpm extends CCrmCompany
             "items" => $batshContragent
         );
 
-        //$Data = json_encode($contragent, true);
-        //pre($Data);
         $que = QueryBpm::jsonDataBpmContr($contragent, BPM_URL_QUERY);
         if($que["status"] == 403){
             $q = QueryBpm::jsonDataBpmContr($contragent, BPM_URL_QUERY);
@@ -1023,15 +1021,6 @@ class CrmBitrixBpm extends CCrmCompany
             }
 
         }
-
-        /*if($que["status"] == 403){
-            $q = QueryBpm::jsonDataBpmContr($contragentDel, BPM_URL_QUERY);
-            return ($q);
-        }else{
-            return ($que);
-        }*/
-        //pre($contragentDel);
-        //exit;
         unset($_SESSION["DELETE_CONTR_LINE"][$deleteComunic["ID"]]);
 
         $deleteComunic["update"] == "Y";
