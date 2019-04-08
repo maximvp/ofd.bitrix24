@@ -45,8 +45,7 @@ class RestBpmBitrix
             return array('error' => $query);
         }
         $verify = self::verify($query["params"]["inn"]);
-
-        //return array("inn" => $query["params"]["inn"]);
+        
         if (!empty($verify)) {
             $result = array('message' => "OK", "accountId" => $verify["guid"]);
             return $result;
@@ -83,16 +82,6 @@ class RestBpmBitrix
         if ($company["RQ_INN"]) {
 
             $guidget = GetUserField($entity_id, $company['ENTITY_ID'], $uf_guid);
-            //"fulname"=>$company["NAME"]." ".$company["RQ_LAST_NAME"].".".substr($company["RQ_FIRST_NAME"], 0,1).".".substr($company["RQ_SECOND_NAME"], 0,1),
-            //$req = new \Bitrix\Crm\EntityRequisite();
-            /*$rser = $req->getList(array(
-                "filter" => array(
-                    "ENTITY_ID" => $company['ENTITY_ID'],
-                    "ENTITY_TYPE_ID" => CCrmOwnerType::Company,
-                    "PRESET_ID" => array(1, 2)
-                )
-            ));*/
-            //$rows = $rser->fetchAll();
             $actulDataTimeAdd = metkaColTime($company['ENTITY_ID'],CONTRAGENT_METKA_ADD);
             $actulDataTime = metkaColTime($company['ENTITY_ID'], CONTRAGENT_METKA_UPDATE, 1);
 
@@ -154,15 +143,12 @@ class RestBpmBitrix
         $logger->log(array($query));
         if (!empty($verify)) {
             //собираю массив
-            //$arrDataContragent = CrmBitrixBpm::contragenAdd($verify);
             $que = CrmBitrixBpm::contragenAdd($verify);
-            //$que = QueryBpm::jsonDataBpm($arrDataContragent, BPM_URL_QUERY);
 
             $status = $que["status"];
             if ($status == 200) {
                 return array("code" => 100, "result" => array("message" => "Inserted successful", "accountId" => $verify["guid"], "method" => "insert"));
             } else {
-                //$result = array("code"=> 102,"result"=>array("message" => $arrDataContragent));
                 return array("code" => 102, "result" => array("message" => "Error $status", "method" => "insert"));
             }
         } else {
