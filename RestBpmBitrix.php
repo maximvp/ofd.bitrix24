@@ -139,8 +139,8 @@ class RestBpmBitrix
         }
 
         $verify = self::verify($query["params"]["inn"]);
-        $logger = Logger::getLogger('AddContr','ofd.bitrix24/AddContr.log');
-        $logger->log(array($query));
+        //$logger = Logger::getLogger('AddContr','ofd.bitrix24/AddContr.log');
+        //$logger->log(array($query));
         if (!empty($verify)) {
             //собираю массив
             $que = CrmBitrixBpm::contragenAdd($verify);
@@ -198,8 +198,8 @@ class RestBpmBitrix
             QueryBpm::login();
         }
         if (!empty($query["params"]["id"])) {
-            $logger = Logger::getLogger('TiketConnect','ofd.bitrix24/TiketConnect.log');
-            $logger->log($query["params"]);
+            //$logger = Logger::getLogger('TiketConnect','ofd.bitrix24/TiketConnect.log');
+            //$logger->log($query["params"]);
             $result = TiketBpmBitrix::getTiket($query["params"]["id"]);
             $status = $result["status"];
             if ($result["add"] == "Y") {
