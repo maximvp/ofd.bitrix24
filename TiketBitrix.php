@@ -71,10 +71,9 @@ class TiketBitrix
             "PROPERTY_VALUES" => $prop,
             "NAME" => $guidTiket["Subject"],
             "ACTIVE" => "Y"
-
         );
-        $logger = Logger::getLogger('creatTiket','ofd.bitrix24/creatTiket.log');
-        $logger->log($guidTiket);
+        //$logger = Logger::getLogger('creatTiket','ofd.bitrix24/creatTiket.log');
+        //$logger->log($guidTiket);
         $el = new CIBlockElement;
         if($ELEMENT_ID = $el->Add($arFields))
             $result = "Y";
@@ -85,13 +84,12 @@ class TiketBitrix
 
     public static function histories ($BL_ID, $ELEMENT_ID, $newText){
         $objDateTime = new DateTime();
-        //echo objDateTime->toString();
+        
         if(CModule::IncludeModule("iblock"))
         {
             $VALUES[] = array(
                 "VALUE" => array(
                     "TEXT"=>$objDateTime->toString().": ".$newText,
-                    //"TEXT"=>date("m.d.y H:i:s").": ".$newText,
                     "TYPE"=>"TEXT"
                 ));
             $res = CIBlockElement::GetProperty($BL_ID, $ELEMENT_ID, Array("sort"=>"asc"), array("CODE" => "ISTORIYA_RABOTY_S_OBRASHCHENIEM"));
@@ -132,7 +130,6 @@ class TiketBitrix
         $prop['ID_ZADACHI_PO_OBRASHCHENIYU'] = $guidTiket["Id"];
         $prop['NUM_OBRASHCHENIYA_V_SERVICEDESK'] = $guidTiket["Number"];
 
-        //array(date("m.d.y H:i:s").": ".$guidTiket["Symptoms"]);
         $prop['Priority'] = $guidTiket["Priority"];
         $prop['Priority_display'] = $guidTiket["Priority_display"];
         $prop['ConfItem'] = $guidTiket["ConfItem"];
@@ -166,10 +163,8 @@ class TiketBitrix
             "PROPERTY_VALUES" => $prop,
             "NAME" => $guidTiket["Subject"],
             "ACTIVE" => "Y"
-
         );
-        $logger = Logger::getLogger('updateTiketPereotkryt','ofd.bitrix24/updateTiketPereotkryt.log');
-        $logger->log($guidTiket);
+
         $el = new CIBlockElement;
 
         if($ELEMENT_ID = $el->Update($PRODUCT_ID, $arFields)){
