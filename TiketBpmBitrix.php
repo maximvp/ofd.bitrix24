@@ -234,8 +234,6 @@ class TiketBpmBitrix{
                 $rezult["add"] = TiketBitrix::add($format);
             }
 
-            $logger = Logger::getLogger('tiketAdd','ofd.bitrix24/tiketAdd.log');
-            $logger->log(array($arrTeket, $format));
             return ($rezult);
 
         }
