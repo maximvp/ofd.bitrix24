@@ -120,9 +120,6 @@ class CIblockEvent
                 session_start();
                 $_SESSION["STATUS_CLOSE"][$propValueSt]["propValueSt"] = $propValueSt;
                 $_SESSION["STATUS_CLOSE"][$idPropSt]["idPropSt"] = $idPropSt;
-                //pre($_SESSION["GROUP_EXPLUATEION"]);
-                //exit;
-
             }
             if($statusXmlIdOld != ID_STATUS_CLOSE ){
                 if($_SESSION["STATUS_CLOSE"][$propValueSt] or $_SESSION["STATUS_CLOSE"][$idPropSt]){
@@ -135,9 +132,6 @@ class CIblockEvent
                 session_start();
                 $_SESSION["GROUP_EXPLUATEION"][$propValueId]["propValueId"] = $propValueId;
                 $_SESSION["GROUP_EXPLUATEION"][$idProp]["idProp"] = $idProp;
-                //pre($_SESSION["GROUP_EXPLUATEION"]);
-                //exit;
-
             }
 
             if(!empty($gruppiOtvetstXmlId) and $gruppiOtvetstXmlId != $gruppiOtvetstXmlIdOld and $gruppiOtvetstXmlId != ID_GROUP_EXPLUATEION){
@@ -174,8 +168,7 @@ class CIblockEvent
                 }
 
             }
-            //pre($arFields["RIGHTS"]);
-            //exit();
+
             if($statusObraschXmlId == ID_STATUS_RE_OPEN){
                 global $APPLICATION;
                 $APPLICATION->ThrowException("Данный статус обращения устанавливается в bpm'online!");
@@ -294,9 +287,7 @@ public function iblockElementUpdate(&$arFields)
                         $idOldTiket = $arFieldsOld["ID"];
                     }
                     $href = "https://".$_SERVER["HTTP_HOST"]."/workgroups/group/".$grup_soc."/lists/".$IBLOCK_ID."/element/0/".$elementId."/";
-//pre($arProps);
-        //exit;
-                    //CIBlockElement::GetPropertyValues();
+
                     if(is_array($historys) and count($historys) > 1){
                         foreach ($historys as $val=>$hist){
                             $his[] = $hist["TEXT"];
@@ -334,14 +325,11 @@ public function iblockElementUpdate(&$arFields)
                     }
 
                     $link["reshenie"]  = $reshenie;
-                    //pre($link);
-                    //exit;
+
                     $tiketUpdate = CrmBitrixBpmUpdate::tiketUpdate($link);
 		    CIBlockElement::SetPropertyValueCode($elementId, "idOldTiket", $elementId);
                     $tikUp["tiketUpdate"] = $tiketUpdate;
                     $tikUp["link"] = $link;
-                    $logger = Logger::getLogger('ProblemUpdateTiket','ofd.bitrix24/ProblemUpdateTiket.log');
-                    $logger->log($tikUp);
                 }
             }
         }
@@ -450,7 +438,6 @@ public function iblockElementUpdate(&$arFields)
                                 switch ($value["VALUE"]) {
                                     case $email:
                                         $email_id = $value["ELEMENT_ID"];
-                                       // break;
                                 }
                             }
                         }
@@ -508,7 +495,6 @@ public function iblockElementUpdate(&$arFields)
                             }
                         }
 
-                        //$ifoContact  = explode(" ", $contactName); $ifoContact[0]
                         $arFields = Array(
                             "TITLE" => "Обращения на 2-ую линию",
                             "COMPANY_TITLE" => "",
@@ -544,7 +530,7 @@ public function iblockElementUpdate(&$arFields)
                         );
                     }
 					
-					//Устанавливаем состояние лида в [ACTIVITY]
+		    //Устанавливаем состояние лида в [ACTIVITY]
                     $arFields["UF_STATE_LEAD"] = getIdElementListState ('XML_STATE_LEAD_ACTIVITY');
 					
                     $oLead = new CCrmLead;
@@ -552,10 +538,8 @@ public function iblockElementUpdate(&$arFields)
                     if($LidID){
                         CIBlockElement::SetPropertyValues($elementId, $IBLOCK_ID, $LidID, $idLid);
                     }
-
-                    $logger = Logger::getLogger('LeadAdd','ofd.bitrix24/LeadAdd.log');
-                    $logger->log(array($LidID,$arFields));
                 }
+		    
                 $tiketUpdate = CrmBitrixBpmUpdate::tiketUpdate($link);
 		CIBlockElement::SetPropertyValueCode($elementId, "idOldTiket", $elementId);
                 $tikUp["tiketUpdate"] = $tiketUpdate;
